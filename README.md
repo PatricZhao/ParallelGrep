@@ -1,18 +1,17 @@
+  
+**NAME**
 
-**Copyright 2011 by Peng (Patric) Zhao. All rights reserved.**
-    
-*Email:  patric.zhao@gmail.com*
- 
+     grep - print lines matching a pattern
+
 **Compile**
 
- - *gcc ParallelGrep.c -o ParallelGrep -lpthread*
-    
-**NAME**
-     grep - print lines matching a pattern
+     gcc ParallelGrep.c -o ParallelGrep -lpthread
  
 **SYNOPSIS**
-        *grep [OPTIONS] PATTERN [FILE...]*
-    
+
+     grep [OPTIONS] PATTERN [FILE...]
+	
+   
    Currently, only one option "-r" is supported with the below format.
      *grep -r PATTERN [FILE...]*
      
@@ -24,6 +23,7 @@
              * search string "Patric" in the directory "grep" recursively.
 		  
 **DESCRIPTION**
+
 The PARALLEL grep is an enhancement for the stardard grep under the Linux system. In this version, the multi-threads technology is used. The GPGPU will be applied in next version.
 
 Now, two kind of parallel modes are employed for both fine and coarse granularity.
@@ -46,7 +46,8 @@ We use N threads to grep a big file stimultanously based domain	decomposition me
 
 
  2. Coarse Parallel for recursive searching directories
- When grepping directories recursively, there are many files to deal with.Thus, it is far away from efficiency to create and destroy threads frequently for each file. Instead of domain decomposition is excluded, we maintain a thread pool and let each thread retrieving file from free task list. Therefore, many files will be addressed in the same time by different threads. So, it is called "Coarse Parallel". Finally, when free list is empty as well as all threads finish the thread pool is destroyed.
+ 
+When grepping directories recursively, there are many files to deal with.Thus, it is far away from efficiency to create and destroy threads frequently for each file. Instead of domain decomposition is excluded, we maintain a thread pool and let each thread retrieving file from free task list. Therefore, many files will be addressed in the same time by different threads. So, it is called "Coarse Parallel". Finally, when free list is empty as well as all threads finish the thread pool is destroyed.
 Such as, the main thread will add the new file into to Tail while each thread gets task from the Head.
         
 	free list for files:
@@ -77,16 +78,19 @@ Such as, the main thread will add the new file into to Tail while each thread ge
  *Note: One reason to limit the performance for current parallel program is that the sequential algorithm is more slower than stardard grep. So that we can hardly get EXPECTED speedup even there is little dependence between each threads.*
 
  **ADVANTAGES**
+ 
  * High Performance and Easy Programming
  * Scalibility and Portability
 
  **DISADVANTAGES**
+ 
   * Usibility: Just supports "-r" and is NOT flexible.
  * NOT in order for output: since each thread prints out the results seperately, the matched line will be mixed.
  * NOT efficient for single small file: the sequential algorithm is slower than standard grep.
   * Bugs: may have potential bugs :( If you find one, email me.
 
  **TODO**
+ 
  * Support more options and improve usibility
  * Improve method reading IO
 * Support mmap().
