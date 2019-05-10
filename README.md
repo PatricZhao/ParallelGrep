@@ -5,7 +5,7 @@
 
 **Compile**
 
-     gcc ParallelGrep.c -o ParallelGrep -lpthread
+     gcc ParallelGrep.c -o grep -lpthread
  
 **SYNOPSIS**
 
@@ -17,9 +17,9 @@
      
    Examples:
    
-         > grep "Patric" /home/patric/grep/grep.c
+         > ./grep "Patric" /home/patric/grep/grep.c
              * search string "Patrice" in the specified file.
-         > grep -r "Patric" /home/patric/grep
+         > ./grep -r "Patric" /home/patric/grep
              * search string "Patric" in the directory "grep" recursively.
 		  
 **DESCRIPTION**
