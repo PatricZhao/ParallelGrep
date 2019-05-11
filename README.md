@@ -3,7 +3,7 @@
 
      grep - print lines matching a pattern
 
-**Compile**
+**COMPILE**
 
      gcc ParallelGrep.c -o grep -lpthread
  
@@ -75,7 +75,7 @@ Such as, the main thread will add the new file into to Tail while each thread ge
        |   Speedup       |                  |    1.96     |   3.62     |   4.79      |
        |_________________|__________________|_____________|____________|_____________| 
 
- *Note: One reason to limit the performance for current parallel program is that the sequential algorithm is more slower than stardard grep. So that we can hardly get EXPECTED speedup even there is little dependence between each threads.*
+ *Note: One reason to limit the performance for current parallel program is that the sequential algorithm is more slower than stardard grep. So that we can't get expected speedup even there is little dependence between each threads.*
 
  **ADVANTAGES**
  
