@@ -20,12 +20,12 @@
 
 /* Copyright (c) 2016 by Peng (Patric)  Zhao
  *  \file ParallelGrep.cc
+ *  Email: patric.zhao@gmail.com
  */
 
 
 /****************************************************************************
  *				INCLUDE 
- *
  ****************************************************************************/
 
 #define _XOPEN_SOURCE 500
@@ -52,14 +52,12 @@
 
 /****************************************************************************
  *                            CONSTANTS                                     *
- *                                                                          *
  ****************************************************************************/
 /* Save the PATTERN */
 const char *targetString_G   = NULL;
 
 /****************************************************************************
  *                           STATIC VARIABLES                               *
- *                                                                          *
  ****************************************************************************/
 static int grepDirRec         = 0;
 static int useOption          = 0;
@@ -67,8 +65,7 @@ static int indexFile          = 0;
 static int finishedGrepSubDir = 0;
 
 /****************************************************************************
- *			     PTHREAD DECLARATION			                            *
- * 									                                        *
+ *			     PTHREAD DECLARATION			                                      *
  ****************************************************************************/
 pthread_t workThread[THREADSNUM];
 pthread_t workThreadPool[THREADSNUM];
@@ -76,8 +73,7 @@ static pthread_mutex_t  workThreadPoolMux               = PTHREAD_MUTEX_INITIALI
 //static pthread_cond_t   workThreadPoolCond              = PTHREAD_COND_INITIALIZER; 
 
 /****************************************************************************
- *			     STRUCTURE DECLARATION			                            *
- * 									                                        *
+ *			     STRUCTURE DECLARATION			                                    *
  ****************************************************************************/
 struct task {
     char *fname;
@@ -94,8 +90,7 @@ struct tasklist {
 struct tasklist *plHead=NULL, *plTail=NULL;
 
 /****************************************************************************
- *				GLOBAL FUNCTIONS			                                *
- * 									                                        *
+ *				GLOBAL FUNCTIONS			                                            *
  ****************************************************************************/
 
 
@@ -121,7 +116,7 @@ help()
 void 
 parseArg(int num, char *string[])
 {
-    //TODO: Does not support the options such as -r, -i. Need enhance.
+    //TODO: Does not support the options such as -r, -i. Need to enhance.
     if ( num < 3) {
         printf("Error: Incorrect arguments!\n");
         help();
@@ -157,7 +152,6 @@ parseArg(int num, char *string[])
  ****************************************************************************/
 void* 
 grepFile(void *arg) {
-
     struct task *file = arg;
     FILE *fp_status;
     char  buf[LINEBUF];
@@ -190,7 +184,6 @@ grepFile(void *arg) {
     fclose(fp_status);
 
 	return NULL;
-
 }
 
 
@@ -208,8 +201,8 @@ workThreadPoolFun(void *arg)
 
     while (1) {
         pthread_mutex_lock(&workThreadPoolMux);
-		// TODO: Awake by a signal from main thread to avoid "while" loop 
-		//       in order to save the CPU resources.
+		    // TODO: Awake by a signal from main thread to avoid "while" loop 
+		    //       in order to save the CPU resources.
         //pthread_cond_wait(&workThreadPoolCond, &workThreadPoolMux);
         if (plHead != NULL && plHead->next != NULL) {
            // Get task from the tail of the list.
@@ -226,7 +219,7 @@ workThreadPoolFun(void *arg)
             
             grepFile((void *)&plTmp->task);
         
-			// free memory from malloc/strdup by addFilesIntoFreeList
+			      // free memory from malloc/strdup by addFilesIntoFreeList
             if (plTmp->task.fname != NULL) {
                 free(plTmp->task.fname);
                 plTmp->task.fname = NULL;
@@ -241,8 +234,6 @@ workThreadPoolFun(void *arg)
             // added into list.
             if (finishedGrepSubDir == 1) {
                 pthread_mutex_unlock(&workThreadPoolMux);
-				// Memory leak caused by pthread_exit in some environment.
-				// This is a pthread bug.
                 pthread_exit(NULL);
             }
             pthread_mutex_unlock(&workThreadPoolMux);
@@ -332,7 +323,7 @@ addFilesIntoFreeList(const char *fpath, const struct stat *sb,
        plTail       = plTail->next;
 
        // TODO: Awake sleeped thread but the signal will lose if all thread is working now.
-	   //       Need a new approach.
+	     //       Need a new approach.
        //pthread_cond_signal(&workThreadPoolCond);
        pthread_mutex_unlock(&workThreadPoolMux);
 
@@ -340,7 +331,6 @@ addFilesIntoFreeList(const char *fpath, const struct stat *sb,
 
     // return 0 to continue.
     return 0;
-
 }
 
 
@@ -352,9 +342,7 @@ addFilesIntoFreeList(const char *fpath, const struct stat *sb,
  ****************************************************************************/
 void 
 testList(struct tasklist * head) {
-    
     struct tasklist *plTmp = NULL;
-    
     while (head != plTail && head->next != NULL) {
         plTmp = head->next;
         head->next = plTmp->next;
@@ -380,9 +368,7 @@ testList(struct tasklist * head) {
  ****************************************************************************/
 void 
 grepDirParallel(const char *path) {
-
     int    flag = 0;
-
     pthread_mutex_lock(&workThreadPoolMux);
     // The head node used to point to files that need to be searched.
     // Don't save actual file info into head node and just use for a pointer.
@@ -410,7 +396,7 @@ grepDirParallel(const char *path) {
     finishedGrepSubDir = 1;
     pthread_mutex_unlock(&workThreadPoolMux);
 
-	// Intenal testing. Exclusive with thread pool.
+	  // Intenal testing. Exclusive with thread pool.
     //testList(plHead);
 
     joinThreadPool();
@@ -432,7 +418,6 @@ grepDirParallel(const char *path) {
  ****************************************************************************/
 void 
 grepFileParallel(const char *file, long size, int threadNum) {
-
     FILE*  fp     = NULL;
     int    i      = 0;
     int    posAdd = 0;
@@ -476,7 +461,6 @@ grepFileParallel(const char *file, long size, int threadNum) {
     for (i = 0; i < threadNum; i++) {
         pthread_join(workThread[i],NULL);
     }
-    
 }
     
 
@@ -530,5 +514,3 @@ main(int argc, char *argv[]) {
 
     return 0;
 }
-
-
