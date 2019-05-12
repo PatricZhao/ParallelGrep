@@ -5,21 +5,21 @@
 
 **COMPILE**
 
-     gcc ParallelGrep.c -o grep -lpthread
+     gcc ParallelGrep.c -o pgrep -lpthread
  
 **SYNOPSIS**
 
-     grep [OPTIONS] PATTERN [FILE...]
+     pgrep [OPTIONS] PATTERN [FILE...]
 	
    
    Currently, only one option "-r" is supported with the below format.
-     *grep -r PATTERN [FILE...]*
+     *pgrep -r PATTERN [FILE...]*
      
    Examples:
    
-         > ./grep "Patric" /home/patric/grep/grep.c
+         > ./pgrep "Patric" /home/patric/grep/grep.c
              * search string "Patrice" in the specified file.
-         > ./grep -r "Patric" /home/patric/grep
+         > ./pgrep -r "Patric" /home/patric/grep
              * search string "Patric" in the directory "grep" recursively.
 		  
 **DESCRIPTION**
@@ -79,9 +79,9 @@ Such as, the main thread will add the new file into to Tail while each thread ge
 
  **EXAMPLES**
  
-    $wget https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-abstract.xml.gz
+    $ wget https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-abstract.xml.gz
     $ gunzip enwiki-latest-abstract.xml.gz
-    $ time grep -F "deep learning" enwiki-latest-abstract.xml >& /dev/null
+    $ time grep "deep learning" enwiki-latest-abstract.xml >& /dev/null
 
 > real 0m3.094s
 
