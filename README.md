@@ -71,9 +71,12 @@ Such as, the main thread will add the new file into to Tail while each thread ge
  *Note: One reason to limit the performance for current parallel program is that the sequential algorithm is more slower than stardard grep. So that we can't get expected speedup even there is little dependence between each threads.*
 
  **EXAMPLES**
- 
+  
     $ wget https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-abstract.xml.gz
     $ gunzip enwiki-latest-abstract.xml.gz
+    
+ NOTE: please run each command several times to avoid cold loading from the disk.
+ 
     $ time grep "deep learning" enwiki-latest-abstract.xml >& /dev/null
 
 > real 0m3.094s
