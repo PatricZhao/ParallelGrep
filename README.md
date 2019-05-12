@@ -1,4 +1,3 @@
-  
 **NAME**
 
      pgrep - print lines matching a pattern
@@ -13,6 +12,7 @@
 	
    
    Currently, only one option "-r" is supported with the below format.
+   
      *pgrep -r PATTERN [FILE...]*     
    		  
 **DESCRIPTION**
