@@ -60,6 +60,8 @@ Such as, the main thread will add the new file into to Tail while each thread ge
              
 **PERFORMANCE**
 
+*Tests based on `grep 2.20` and the latest grep is quick faster so the `parallel grep` dosesn't faster than standard grep again, see [this issue](https://github.com/PatricZhao/ParallelGrep/issues/3).*
+
         _____________________________________________________________________________
        | Dir Size (MB)   |   standard grep  |  2 threads  | 4 threads  |  8 threads  |
        |_________________|__________________|_____________|____________|_____________|
@@ -69,6 +71,7 @@ Such as, the main thread will add the new file into to Tail while each thread ge
        |_________________|__________________|_____________|____________|_____________| 
 
  *Note: One reason to limit the performance for current parallel program is that the sequential algorithm is more slower than stardard grep. So that we can't get expected speedup even there is little dependence between each threads.*
+
 
  **EXAMPLES**
   
