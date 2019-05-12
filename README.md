@@ -1,7 +1,7 @@
   
 **NAME**
 
-     grep - print lines matching a pattern
+     pgrep - print lines matching a pattern
 
 **COMPILE**
 
@@ -13,15 +13,8 @@
 	
    
    Currently, only one option "-r" is supported with the below format.
-     *pgrep -r PATTERN [FILE...]*
-     
-   Examples:
-   
-         > ./pgrep "Patric" /home/patric/grep/grep.c
-             * search string "Patrice" in the specified file.
-         > ./pgrep -r "Patric" /home/patric/grep
-             * search string "Patric" in the directory "grep" recursively.
-		  
+     *pgrep -r PATTERN [FILE...]*     
+   		  
 **DESCRIPTION**
 
 The PARALLEL grep is an enhancement for the stardard grep under the Linux system. In this version, the multi-threads technology is used. The GPGPU will be applied in next version.
