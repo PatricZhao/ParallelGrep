@@ -1,3 +1,9 @@
+The `PARALLEL grep` is a demo to show how to apply parallel algorithm into `grep` under the Linux system. 
+
+In this version, the multi-threads technology is used under the X86 architecture. 
+
+Welcome to contribute to improve the code :)
+
 **NAME**
 
      pgrep - print lines matching a pattern
@@ -16,8 +22,6 @@
      *pgrep -r PATTERN [FILE...]*     
    		  
 **DESCRIPTION**
-
-The PARALLEL grep is an enhancement for the stardard grep under the Linux system. In this version, the multi-threads technology is used. The GPGPU will be applied in next version.
 
 Now, two kind of parallel modes are employed for both fine and coarse granularity.
  
@@ -60,7 +64,8 @@ Such as, the main thread will add the new file into to Tail while each thread ge
              
 **PERFORMANCE**
 
-*Tests based on `grep 2.20` and the latest grep is quick faster so the `parallel grep` dosesn't faster than standard grep again, see [this issue](https://github.com/PatricZhao/ParallelGrep/issues/3).*
+*We compare the performance between `grep 2.20` and parallel version. 
+The latest grep is quick faster so the `parallel grep` dosesn't faster than standard grep again, see [this issue](https://github.com/PatricZhao/ParallelGrep/issues/3).*
 
         _____________________________________________________________________________
        | Dir Size (MB)   |   standard grep  |  2 threads  | 4 threads  |  8 threads  |
@@ -104,17 +109,17 @@ Such as, the main thread will add the new file into to Tail while each thread ge
 
  **DISADVANTAGES**
  
-  * Usibility: Just supports "-r" and is NOT flexible.
+ * Usibility: Just supports "-r" and is NOT flexible.
  * NOT in order for output: since each thread prints out the results seperately, the matched line will be mixed.
  * NOT efficient for single small file: the sequential algorithm is slower than standard grep.
-  * Bugs: may have potential bugs :( If you find one, email me.
+ * Bugs: may have potential bugs :( If you find one, email me.
 
  **TODO**
  
- * Support more options and improve usibility
- * Improve method reading IO
+* Support more options and improve usibility
+* Improve method reading IO
 * Support mmap().
- * Adjust the number of work threads automatically
- * Based on different type of CPU and machine loading.
-  * Improve parallel algorithms
-  * Remove handcodes
+* Adjust the number of work threads automatically
+* Based on different type of CPU and machine loading.
+* Improve parallel algorithms
+* Remove handcodes
