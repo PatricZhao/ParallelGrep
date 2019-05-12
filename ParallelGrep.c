@@ -114,7 +114,7 @@ help()
 
 /****************************************************************************
  * function    : parseArg 
- * description : split the arguments from commond line.
+ * description : split the arguments from command line.
  * argument(s) : 
  * return      : 
  ****************************************************************************/
